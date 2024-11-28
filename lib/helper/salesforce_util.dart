@@ -2,7 +2,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, constant_identifier_names, 
 
 import 'dart:core';
-import 'package:finmind/helper/app_constants.dart';
+import 'package:expenso/helper/app_constants.dart';
 import 'package:logger/logger.dart';
 
 class SalesforceUtil{

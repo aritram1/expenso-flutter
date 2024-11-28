@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:finmind/helper/model_task.dart';
-import 'package:finmind/modules/calendar/new_task.dart';
-import 'package:finmind/modules/calendar/util_calendar.dart';
-import 'package:finmind/widgets/listview_widget.dart';
+import 'package:expenso/helper/model_task.dart';
+import 'package:expenso/modules/calendar/new_task.dart';
+import 'package:expenso/modules/calendar/util_calendar.dart';
+import 'package:expenso/widgets/listview_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:table_calendar/table_calendar.dart';

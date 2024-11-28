@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:convert';
-import 'package:finmind/helper/app_exception.dart';
-import 'package:finmind/helper/model_task.dart';
-import 'package:finmind/helper/salesforce_query_controller.dart';
+import 'package:expenso/helper/app_exception.dart';
+import 'package:expenso/helper/model_task.dart';
+import 'package:expenso/helper/salesforce_query_controller.dart';
 import 'package:logger/logger.dart';
 
 class FinPlanCalendarUtil {

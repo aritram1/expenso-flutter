@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-import 'package:finmind/helper/salesforce_query_controller.dart';
+import 'package:expenso/helper/salesforce_query_controller.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 

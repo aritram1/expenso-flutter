@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/modules/home/home.dart';
-import 'package:finmind/modules/login/login.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/modules/home/home.dart';
+import 'package:expenso/modules/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 

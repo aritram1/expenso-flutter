@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/app_exception.dart';
-import 'package:finmind/helper/app_secure_file_manager.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/app_exception.dart';
+import 'package:expenso/helper/app_secure_file_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';

@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:finmind/helper/app_constants.dart';
+import 'package:expenso/helper/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/app_exception.dart';
-import 'package:finmind/helper/app_secure_file_manager.dart';
-import 'package:finmind/helper/salesforce_custom_rest_controller.dart';
-import 'package:finmind/modules/login/login_via_salesforce.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/app_exception.dart';
+import 'package:expenso/helper/app_secure_file_manager.dart';
+import 'package:expenso/helper/salesforce_custom_rest_controller.dart';
+import 'package:expenso/modules/login/login_via_salesforce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;

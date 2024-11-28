@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, no_leading_underscores_for_local_identifiers, non_constant_identifier_names
 
-import 'package:finmind/helper/app_constants.dart';
+import 'package:expenso/helper/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 

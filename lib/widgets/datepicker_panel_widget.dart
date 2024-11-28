@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable, non_constant_identifier_names
 
-import 'package:finmind/helper/app_constants.dart';
+import 'package:expenso/helper/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';

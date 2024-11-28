@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable
 // import 'package:ExpenseManager/widgets/finplan_table_widget.dart';
-import 'package:finmind/modules/account/util_account.dart';
-import 'package:finmind/widgets/credit_card_widget.dart';
-import 'package:finmind/widgets/savings_account_widget.dart';
-import 'package:finmind/widgets/digital_wallet_widget.dart';
-import 'package:finmind/widgets/table_widget.dart';
+import 'package:expenso/modules/account/util_account.dart';
+import 'package:expenso/widgets/credit_card_widget.dart';
+import 'package:expenso/widgets/savings_account_widget.dart';
+import 'package:expenso/widgets/digital_wallet_widget.dart';
+import 'package:expenso/widgets/table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 

@@ -1,4 +1,4 @@
-# finmind
+# Expenso
 
 A new Flutter project.
 

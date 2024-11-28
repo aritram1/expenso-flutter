@@ -2,12 +2,12 @@
 import 'dart:convert';
 
 import 'package:device_info/device_info.dart';
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/app_exception.dart';
-import 'package:finmind/helper/app_sms_manager.dart';
-import 'package:finmind/helper/salesforce_custom_rest_controller.dart';
-import 'package:finmind/helper/salesforce_dml_controller.dart';
-import 'package:finmind/helper/salesforce_query_controller.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/app_exception.dart';
+import 'package:expenso/helper/app_sms_manager.dart';
+import 'package:expenso/helper/salesforce_custom_rest_controller.dart';
+import 'package:expenso/helper/salesforce_dml_controller.dart';
+import 'package:expenso/helper/salesforce_query_controller.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:intl/intl.dart';

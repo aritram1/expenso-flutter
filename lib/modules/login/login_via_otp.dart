@@ -1,5 +1,5 @@
-import 'package:finmind/helper/salesforce_oauth2_controller.dart';
-import 'package:finmind/widgets/wavy_clipper_widget.dart';
+import 'package:expenso/helper/salesforce_oauth2_controller.dart';
+import 'package:expenso/widgets/wavy_clipper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 

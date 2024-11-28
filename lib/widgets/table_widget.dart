@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:finmind/modules/message/message_detail.dart';
+import 'package:expenso/modules/message/message_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';

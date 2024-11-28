@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/app_exception.dart';
-import 'package:finmind/modules/transaction/util_transaction.dart';
-import 'package:finmind/widgets/datepicker_panel_widget.dart';
-import 'package:finmind/widgets/enhanced_pill_widget.dart';
-import 'package:finmind/widgets/table_widget.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/app_exception.dart';
+import 'package:expenso/modules/transaction/util_transaction.dart';
+import 'package:expenso/widgets/datepicker_panel_widget.dart';
+import 'package:expenso/widgets/enhanced_pill_widget.dart';
+import 'package:expenso/widgets/table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';

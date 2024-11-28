@@ -7,6 +7,6 @@ class AppException implements Exception {
 
   @override
   String toString() {
-    return 'FinPlanException: $message';
+    return 'AppException: $message';
   }
 }

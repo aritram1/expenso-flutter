@@ -1,15 +1,15 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/app_secure_file_manager.dart';
-import 'package:finmind/helper/salesforce_oauth2_controller.dart';
-import 'package:finmind/modules/account/all_accounts.dart';
-import 'package:finmind/modules/calendar/calendar.dart';
-import 'package:finmind/modules/login/login.dart';
-import 'package:finmind/modules/message/all_messages.dart';
-import 'package:finmind/modules/transaction/all_transactions.dart';
-import 'package:finmind/widgets/appbar_widget.dart';
-import 'package:finmind/widgets/tile_widget.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/app_secure_file_manager.dart';
+import 'package:expenso/helper/salesforce_oauth2_controller.dart';
+import 'package:expenso/modules/account/all_accounts.dart';
+import 'package:expenso/modules/calendar/calendar.dart';
+import 'package:expenso/modules/login/login.dart';
+import 'package:expenso/modules/message/all_messages.dart';
+import 'package:expenso/modules/transaction/all_transactions.dart';
+import 'package:expenso/widgets/appbar_widget.dart';
+import 'package:expenso/widgets/tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';

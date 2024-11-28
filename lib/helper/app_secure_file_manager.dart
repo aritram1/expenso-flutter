@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/salesforce_login_controller.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/salesforce_login_controller.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logger/logger.dart';

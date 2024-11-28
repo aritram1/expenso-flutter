@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:finmind/helper/app_constants.dart';
-import 'package:finmind/helper/app_exception.dart';
-import 'package:finmind/helper/salesforce_oauth2_controller.dart';
-import 'package:finmind/modules/home/home.dart';
-import 'package:finmind/widgets/wavy_clipper_widget.dart';
+import 'package:expenso/helper/app_constants.dart';
+import 'package:expenso/helper/app_exception.dart';
+import 'package:expenso/helper/salesforce_oauth2_controller.dart';
+import 'package:expenso/modules/home/home.dart';
+import 'package:expenso/widgets/wavy_clipper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
-import 'package:finmind/modules/login/login_via_otp.dart';
-import 'package:finmind/modules/login/login_via_salesforce.dart';
-import 'package:finmind/widgets/login_provider_widget.dart';
+import 'package:expenso/modules/login/login_via_otp.dart';
+import 'package:expenso/modules/login/login_via_salesforce.dart';
+import 'package:expenso/widgets/login_provider_widget.dart';
 
 class AppLoginPage extends StatefulWidget {
   const AppLoginPage({

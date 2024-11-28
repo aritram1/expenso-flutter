@@ -1,4 +1,4 @@
-package com.example.finmind
+package com.example.expenso
 
 import io.flutter.embedding.android.FlutterActivity
 

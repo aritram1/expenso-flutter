@@ -7,11 +7,11 @@ import 'package:logger/logger.dart';
 
 class SecureFileManager{
 
-  static String clientId = dotenv.env['clientId'] ?? '';
+  static String clientId = AppConstants.OAUTH2_CLIENT_ID_EXPENSO;
   static String redirectUri = dotenv.env['redirectUri'] ?? '';
-  static String tokenUrl = dotenv.env['tokenEndpoint'] ?? '';
-  static String authUrl = dotenv.env['authUrlEndpoint'] ?? '';
-  static String revokeUrlEndpoint = dotenv.env['revokeUrlEndpoint'] ?? '';
+  static String tokenUrl = AppConstants.OAUTH2_TOKEN_ENDPOINT;
+  static String authUrl = AppConstants.OAUTH2_AUTH_ENDPOINT;
+  static String revokeAccessEndpoint = AppConstants.OAUTH2_REVOKE_ACCESS_ENDPOINT;
 
   static const storage = FlutterSecureStorage();
   

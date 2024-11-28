@@ -188,22 +188,6 @@ class LoginPageState extends State<AppLoginPage> {
       );
     }
     
-    // final String clientId = dotenv.env['clientId'] ?? '';
-    // final String redirectUri = dotenv.env['redirectUri'] ?? '';
-    // final String tokenUrl = dotenv.env['tokenEndpoint'] ?? '';
-    // final String authUrl = dotenv.env['authUrlEndpoint'] ?? '';
-
-    // Logger().d('Trying to login via Salesforce!');
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => LoginViaSalesforcePage(
-    //     authUrl: authUrl, 
-    //     clientId: clientId, 
-    //     redirectUri: redirectUri, 
-    //     tokenUrl: tokenUrl, 
-    //     currentContext: context,
-    //   )),
-    // );
   }
 
   void loginWithGoogle() async {

@@ -7,7 +7,7 @@ class AppConstants{
   static const String HOME_PAGE_TITLE = 'Home Page';
   static const int TOKEN_TIMEOUT_MINUTES = 120;
   static const String DATABASE_NAME = 'expenso.db';
-  static const String APP_NAME = 'FinMind'; // This name is shown in `Recent Items` in android
+  static const String APP_NAME = 'Expenso'; // This name is shown in `Recent Items` in android
   static const String IN_DATE_FORMAT = 'yyyy-MM-dd';
   static const String INVALID_SESSION_ID = 'INVALID_SESSION_ID';
   static const String INSERT = 'insert';
@@ -25,7 +25,7 @@ class AppConstants{
   static const bool SPECIAL_DEBUG = true;
   static const bool DEBUG = true;
   
-  static const String LOGIN_VIA_OTP_ENDPOINT = 'wwwgoogle.com';
+  static const String LOGIN_VIA_OTP_ENDPOINT = 'www.google.com';
 
   static const String DELETE_MESSAGES = 'delete_messages';
   static const String DELETE_TRANSACTIONS = 'delete_transactions';
@@ -52,8 +52,15 @@ class AppConstants{
 
   static const String OAUTH2_CLIENT_ID = '3MVG9wt4IL4O5wvIBCa0yrhLb82rC8GGk03G2F26xbcntt9nq1JXS75mWYnnuS2rxwlghyQczUFgX4whptQeT';
   static const String OAUTH2_CLIENT_SECRET = '3E0A6C0002E99716BD15C7C35F005FFFB716B8AA2DE28FBD49220EC238B2FFC7';
+  
+  static const String OAUTH2_CLIENT_ID_EXPENSO = '3MVG9k02hQhyUgQAH_sdqt1SK.UP_KJVv9NytGFYs80P8fNz8sdqnag.zaC3dDd_98BlhPqj07oielhVpx51U';
+  static const String OAUTH2_CLIENT_SECRET_EXPENSO = '9217258B3C870B6DEF1CD180B59F5161400691A0896CCE60BF79C2FB34650677';
 
   static const String QUERY_URL = '/services/data/v59.0/query?q=';
+
+  static const String OAUTH2_TOKEN_ENDPOINT = 'https://login.salesforce.com/services/oauth2/token';
+  static const String OAUTH2_AUTH_ENDPOINT = 'https://login.salesforce.com/services/oauth2/authorize';
+  static const String OAUTH2_REVOKE_ACCESS_ENDPOINT = 'https://login.salesforce.com/services/oauth2/revoke';
 
   // CUSTOM REST ENDPOINTS (Not Configurable)
   static const String CUSTOM_ENDPOINT_FOR_SYNC_MESSAGES = '/services/apexrest/FinPlan/api/sms/sync/*';

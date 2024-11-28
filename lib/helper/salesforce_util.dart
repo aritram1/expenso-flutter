@@ -10,11 +10,11 @@ class SalesforceUtil{
   // const static String VERSION = '59.0'
 
   // Declare required variables
-  static String clientId = AppConstants.OAUTH2_CLIENT_ID;
-  static String clientSecret = AppConstants.OAUTH2_CLIENT_SECRET;
+  static String clientId = AppConstants.OAUTH2_CLIENT_ID_EXPENSO;
+  static String clientSecret = AppConstants.OAUTH2_CLIENT_SECRET_EXPENSO;
   static String userName = '';
   static String pwdWithToken = '';
-  static String tokenEndpoint = '';
+  static String tokenEndpoint = AppConstants.OAUTH2_TOKEN_ENDPOINT;
   static String tokenGrantType = '';
   static String compositeUrlForInsert = AppConstants.COMPOSITE_URL_FOR_INSERT;
   static String compositeUrlForUpdate = AppConstants.COMPOSITE_URL_FOR_UPDATE;
@@ -26,28 +26,6 @@ class SalesforceUtil{
   static Logger log = Logger();
 
   static bool initialized = false;
-
-  // static init() async {
-  //   // Load environment variables from the .env file and assign to class variables
-  //   await dotenv.load(fileName: ".env");
-  //   clientId              = dotenv.env['clientId'] ?? '';
-  //   clientSecret          = dotenv.env['clientSecret'] ?? '';
-  //   userName              = dotenv.env['userName'] ?? '';
-  //   pwdWithToken          = dotenv.env['pwdWithToken'] ?? '';
-  //   tokenEndpoint         = dotenv.env['tokenEndpoint'] ?? '';
-  //   tokenGrantType        = dotenv.env['tokenGrantType'] ?? '';
-
-  //   compositeUrlForInsert = dotenv.env['compositeUrlForInsert'] ?? ''; // Standard Insert API from Salesforce - '/services/data/v59.0/composite/tree/'
-  //   compositeUrlForUpdate = dotenv.env['compositeUrlForUpdate'] ?? ''; // Standard Update API from Salesforce - '/services/data/v59.0/composite/sobjects/'
-  //   compositeUrlForDelete = dotenv.env['compositeUrlForDelete'] ?? ''; // Standard Delete API from Salesforce - '/services/data/v59.0/composite/sobjects?ids='
-  //   queryUrl              = dotenv.env['queryUrl'] ?? '';              // Standard Query API from Salesforce  - '/services/data/v59.0/query?q='
-
-  //   debug                 = bool.parse(dotenv.env['debug'] ?? 'false');
-  //   detaildebug           = bool.parse(dotenv.env['detaildebug'] ?? 'false');
-
-  //   initialized = true;
-
-  // }
 
   // Method to generate request header for logged in requests
   static Map<String, String> generateLoggedInRequestHeader(String accessToken){

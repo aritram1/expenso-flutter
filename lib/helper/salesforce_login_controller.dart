@@ -16,13 +16,10 @@ class SalesforceLoginController{
   // Declare required variables
   static String clientId = '';
   static String clientSecret = '';
-  static String userName = '';
-  static String pwdWithToken = '';
+  // static String userName = '';
+  // static String pwdWithToken = '';
   static String tokenEndpoint = '';
   static String tokenGrantType = '';
-  static String compositeUrlForInsert = '';
-  static String compositeUrlForUpdate = '';
-  static String compositeUrlForDelete = '';
   static String queryUrl = '';
   static bool debug = false; 
   static bool detaildebug = false;
@@ -39,20 +36,17 @@ class SalesforceLoginController{
   static init() async {
     // Load environment variables from the .env file and assign to class variables
     await dotenv.load(fileName: ".env");
-    clientId              = dotenv.env['clientId'] ?? '';
-    clientSecret          = dotenv.env['clientSecret'] ?? '';
-    userName              = dotenv.env['userName'] ?? '';
-    pwdWithToken          = dotenv.env['pwdWithToken'] ?? '';
-    tokenEndpoint         = dotenv.env['tokenEndpoint'] ?? '';
+    clientId              = AppConstants.OAUTH2_CLIENT_ID_EXPENSO;
+    clientSecret          = AppConstants.OAUTH2_CLIENT_SECRET_EXPENSO;
+
+    // userName              = dotenv.env['userName'] ?? '';
+    // pwdWithToken          = dotenv.env['pwdWithToken'] ?? '';
+    tokenEndpoint         = AppConstants.OAUTH2_TOKEN_ENDPOINT;
     tokenGrantType        = dotenv.env['tokenGrantType'] ?? '';
 
-    compositeUrlForInsert = dotenv.env['compositeUrlForInsert'] ?? ''; // Standard Insert API from Salesforce - '/services/data/v59.0/composite/tree/'
-    compositeUrlForUpdate = dotenv.env['compositeUrlForUpdate'] ?? ''; // Standard Update API from Salesforce - '/services/data/v59.0/composite/sobjects/'
-    compositeUrlForDelete = dotenv.env['compositeUrlForDelete'] ?? ''; // Standard Delete API from Salesforce - '/services/data/v59.0/composite/sobjects?ids='
-    queryUrl              = dotenv.env['queryUrl'] ?? '';              // Standard Query API from Salesforce  - '/services/data/v59.0/query?q='
-
-    debug                 = bool.parse(dotenv.env['debug'] ?? 'false');
-    detaildebug           = bool.parse(dotenv.env['detaildebug'] ?? 'false');
+    queryUrl              = AppConstants.QUERY_URL;
+    debug                 = AppConstants.DEBUG;
+    detaildebug           = AppConstants.DETAIL_DEBUG;
 
     initialized = true;
 
@@ -61,27 +55,14 @@ class SalesforceLoginController{
   // Method to Login to Salesforce via OTP
   static Future<Map<String, dynamic>> loginToSalesforceWithOTP({required String phone}) async{
     if(!initialized) await init();
-    Map<String, dynamic> response = await _loginToSalesforceWithOTP(phone : phone);
-    Logger().d('Response within loginToSalesforceWithRefreshToken => ' + response.toString());
-    return response;
-  }
-
-  // To be implemented
-  static Future<Map<String, dynamic>> _loginToSalesforceWithOTP({required String phone}) async{
     Map<String, dynamic> response = {};
+    Logger().d('Response within loginToSalesforceWithRefreshToken => ' + response.toString());
     return Future.value(response);
   }
 
   // Method to Login to Salesforce with Refresh Token
   static Future<Map<String, dynamic>> loginToSalesforceWithRefreshToken({required String refreshToken}) async{
     if(!initialized) await init();
-    Map<String, dynamic> response = await _loginToSalesforceWithRefreshToken(refreshToken : refreshToken);
-    Logger().d('Response within loginToSalesforceWithRefreshToken => ' + response.toString());
-    return response;
-  }
-  
-  // private method - gets called from `loginToSalesforceWithRefreshToken` method
-  static Future<Map<String, dynamic>> _loginToSalesforceWithRefreshToken({required String refreshToken}) async{
     Map<String, dynamic> loginResponse = {};
     String? newAccessToken;
     
@@ -102,8 +83,10 @@ class SalesforceLoginController{
       if(detaildebug) log.e('Error occurred while logging into Salesforce. Error is : ${error.toString()}, stacktrace : ${stacktrace.toString()}');
       loginResponse['error'] = error.toString();
     }
+    Logger().d('Response within loginToSalesforceWithRefreshToken => ' + loginResponse.toString());
     return loginResponse;
   }
+
 
   static Future<String?> getAccessTokenWithRefreshToken({required String refreshToken}) async {
     
@@ -156,31 +139,5 @@ class SalesforceLoginController{
       return null;
     }
   }
-
-  // // Method to Login to Salesforce via SF Credentials
-  // static Future<Map<String, dynamic>> loginToSalesforce() async{
-  //   if(!initialized) await init();
-  //   Map<String, dynamic> response = await _login();
-  //   return response;
-  // }
-  
-  // // private method - gets called from `login` method
-  // static Future<Map<String, dynamic>> _login() async{
-  //   Map<String, dynamic> loginResponse = {};
-  //   try{
-      
-  //     if(accessToken == '' || instanceUrl == ''){
-  //       // Log an error
-  //       String errorMessage = 'Acccess Token and Instance URL both are required! token : $accessToken, url : $instanceUrl';
-  //       loginResponse['error'] = errorMessage;
-  //       throw CustomException(errorMessage);
-  //     }
-  //   }
-  //   catch(error,stacktrace){
-  //     if(detaildebug) log.e('Error occurred while logging into Salesforce. Error is : $error, stacktrace : $stacktrace');
-  //     loginResponse['error'] = error.toString();
-  //   }
-  //   return loginResponse;
-  // }
   
 }

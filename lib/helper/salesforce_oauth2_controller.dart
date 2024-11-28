@@ -13,11 +13,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class SalesforceAuth2Controller {
 
-  static String clientId = dotenv.env['clientId'] ?? '';
+  static String clientId = AppConstants.OAUTH2_CLIENT_ID_EXPENSO;
   static String redirectUri = dotenv.env['redirectUri'] ?? '';
-  static String tokenUrl = dotenv.env['tokenEndpoint'] ?? '';
-  static String authUrl = dotenv.env['authUrlEndpoint'] ?? '';
-  static String revokeUrlEndpoint = dotenv.env['revokeUrlEndpoint'] ?? '';
+  static String tokenUrl = AppConstants.OAUTH2_TOKEN_ENDPOINT;
+  static String authUrl = AppConstants.OAUTH2_AUTH_ENDPOINT;
+  static String revokeAccessEndpoint = AppConstants.OAUTH2_REVOKE_ACCESS_ENDPOINT;
 
   static late final WebViewController webViewController;
 
@@ -56,7 +56,7 @@ class SalesforceAuth2Controller {
 
   static dynamic revokeAccessTokenInSalesforce(String? accessToken) async{
     final response = await http.post(
-      Uri.parse(revokeUrlEndpoint),
+      Uri.parse(revokeAccessEndpoint),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },

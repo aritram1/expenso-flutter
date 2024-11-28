@@ -3,6 +3,7 @@
 
 import 'dart:convert';
 import 'dart:core';
+import 'package:finmind/helper/app_constants.dart';
 import 'package:finmind/helper/app_secure_file_manager.dart';
 import 'package:finmind/helper/salesforce_util.dart';
 import 'package:http/http.dart' as http;
@@ -15,8 +16,8 @@ class SalesforceQueryController{
   // Declare required variables
   static String clientId = '';
   static String clientSecret = '';
-  static String userName = '';
-  static String pwdWithToken = '';
+  // static String userName = '';
+  // static String pwdWithToken = '';
   static String tokenEndpoint = '';
   static String tokenGrantType = '';
   static String compositeUrlForInsert = '';
@@ -38,11 +39,11 @@ class SalesforceQueryController{
   static init() async {
     // Load environment variables from the .env file and assign to class variables
     await dotenv.load(fileName: ".env");
-    clientId              = dotenv.env['clientId'] ?? '';
-    clientSecret          = dotenv.env['clientSecret'] ?? '';
-    userName              = dotenv.env['userName'] ?? '';
-    pwdWithToken          = dotenv.env['pwdWithToken'] ?? '';
-    tokenEndpoint         = dotenv.env['tokenEndpoint'] ?? '';
+    clientId              = AppConstants.OAUTH2_CLIENT_ID_EXPENSO;
+    clientSecret          = AppConstants.OAUTH2_CLIENT_SECRET_EXPENSO;
+    // userName              = dotenv.env['userName'] ?? '';
+    // pwdWithToken          = dotenv.env['pwdWithToken'] ?? '';
+    tokenEndpoint         = AppConstants.OAUTH2_TOKEN_ENDPOINT;
     tokenGrantType        = dotenv.env['tokenGrantType'] ?? '';
 
     compositeUrlForInsert = dotenv.env['compositeUrlForInsert'] ?? ''; // Standard Insert API from Salesforce - '/services/data/v59.0/composite/tree/'

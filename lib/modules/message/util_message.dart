@@ -34,7 +34,7 @@ class MessagesUtil {
     
     List<Map<String, dynamic>> allTransactionMessages = [];
     Map<String, dynamic> response = await SalesforceQueryController.queryFromSalesforce(
-      objAPIName: 'SMS_Message__c', 
+      objAPIName: 'SMS__c',  // objAPIName: 'SMS_Message__c',
       fieldList: ['Id', 'CreatedDate', 'Transaction_Date__c', 'Beneficiary__c', 
                   'Amount_Value__c', 'Beneficiary_Type__c', 'Device__c',
                   'Approved__c', 'Create_Transaction__c', 'Type__c'], 

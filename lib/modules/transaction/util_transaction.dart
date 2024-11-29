@@ -38,7 +38,7 @@ class FinPlanTransactionUtil {
     
     List<Map<String, dynamic>> allTransactionMessages = [];
     Map<String, dynamic> response = await SalesforceQueryController.queryFromSalesforce(
-      objAPIName: 'SMS_Message__c', 
+      objAPIName: 'SMS__c', // 'SMS_Message__c', 
       fieldList: ['Id', 'CreatedDate', 'Transaction_Date__c', 'Beneficiary__c', 
                   'Amount_Value__c', 'Beneficiary_Type__c', 'Device__c',
                   'Approved__c', 'Create_Transaction__c', 'Type__c'], 
@@ -97,7 +97,7 @@ class FinPlanTransactionUtil {
     List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
     Map<String, dynamic> createResponse = await SalesforceDMLController.dmlToSalesforce(
         opType: AppConstants.INSERT,
-        objAPIName : 'SMS_Message__c', 
+        objAPIName : 'SMS__c', // 'SMS_Message__c', 
         fieldNameValuePairs : messagesMap
     );
 

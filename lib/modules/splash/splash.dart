@@ -2,7 +2,7 @@
 
 import 'package:expenso/helper/app_constants.dart';
 import 'package:expenso/modules/home/home.dart';
-import 'package:expenso/modules/login/login.dart';
+import 'package:expenso/modules/login/app_login.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 

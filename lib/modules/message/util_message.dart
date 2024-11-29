@@ -25,7 +25,7 @@ class MessagesUtil {
     String formattedEndDateTime = DateFormat(AppConstants.IN_DATE_FORMAT).format(endDate);       // endDate.toUTC() is not required since endDate is already in UTC
     
     // Create the date clause to use in query later
-    String dateClause = 'AND FinPlan__Transaction_Date__c >= $formattedStartDateTime AND FinPlan__Transaction_Date__c <= $formattedEndDateTime';
+    String dateClause = 'AND Transaction_Date__c >= $formattedStartDateTime AND Transaction_Date__c <= $formattedEndDateTime';
     if(debug) log.d('StartDate is $startDate, endDate is $endDate and dateClause is=> $dateClause');
 
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -34,12 +34,12 @@ class MessagesUtil {
     
     List<Map<String, dynamic>> allTransactionMessages = [];
     Map<String, dynamic> response = await SalesforceQueryController.queryFromSalesforce(
-      objAPIName: 'FinPlan__SMS_Message__c', 
-      fieldList: ['Id', 'CreatedDate', 'FinPlan__Transaction_Date__c', 'FinPlan__Beneficiary__c', 
-                  'FinPlan__Amount_Value__c', 'FinPlan__Beneficiary_Type__c', 'FinPlan__Device__c',
-                  'FinPlan__Approved__c', 'FinPlan__Create_Transaction__c', 'FinPlan__Type__c'], 
-      whereClause: 'FinPlan__Device__c = $deviceId AND FinPlan__Approved__c = false AND FinPlan__Create_Transaction__c = true $dateClause',
-      orderByClause: 'FinPlan__Transaction_Date__c desc',
+      objAPIName: 'SMS_Message__c', 
+      fieldList: ['Id', 'CreatedDate', 'Transaction_Date__c', 'Beneficiary__c', 
+                  'Amount_Value__c', 'Beneficiary_Type__c', 'Device__c',
+                  'Approved__c', 'Create_Transaction__c', 'Type__c'], 
+      whereClause: 'Device__c = $deviceId AND Approved__c = false AND Create_Transaction__c = true $dateClause',
+      orderByClause: 'Transaction_Date__c desc',
       //count : 120
     );
     dynamic error = response['error'];
@@ -60,12 +60,12 @@ class MessagesUtil {
           for (var record in records) {
             Map<String, dynamic> recordMap = Map.castFrom(record);
             allTransactionMessages.add({
-              'Paid To': recordMap['FinPlan__Beneficiary__c'] ?? 'Default Beneficiary',
-              'Amount': double.parse(recordMap['FinPlan__Amount_Value__c'] ?? '0'),
-              'Date': DateTime.parse(recordMap['FinPlan__Transaction_Date__c'] ?? DateTime.now().toString()),
+              'Paid To': recordMap['Beneficiary__c'] ?? 'Default Beneficiary',
+              'Amount': double.parse(recordMap['Amount_Value__c'] ?? '0'),
+              'Date': DateTime.parse(recordMap['Transaction_Date__c'] ?? DateTime.now().toString()),
               'Id': recordMap['Id'] ?? 'Default Id',
-              'BeneficiaryType': recordMap['FinPlan__Beneficiary_Type__c'] ?? '',
-              'Type' : recordMap['FinPlan__Type__c'] ?? 'noType'
+              'BeneficiaryType': recordMap['Beneficiary_Type__c'] ?? '',
+              'Type' : recordMap['Type__c'] ?? 'noType'
             });
           }
         }
@@ -94,7 +94,7 @@ class MessagesUtil {
     log.d('txnMessagesAsKeyValuePairs=> $txnMessagesAsKeyValuePairs');
     Map<String, dynamic> createResponse = await SalesforceDMLController.dmlToSalesforce(
         opType: AppConstants.INSERT,
-        objAPIName : 'FinPlan__SMS_Message__c', 
+        objAPIName : 'SMS_Message__c', 
         fieldNameValuePairs : txnMessagesAsKeyValuePairs
     );
 

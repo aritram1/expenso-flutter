@@ -40,6 +40,8 @@ class _FinPlanCreateNewTaskPageState extends State<FinPlanCreateNewTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'new_task.dart';
+    Logger().d('Build Method run for : $componentName');
     return 
     Padding(
       padding: const EdgeInsets.all(16.0),

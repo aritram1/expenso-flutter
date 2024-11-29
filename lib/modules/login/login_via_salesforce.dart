@@ -34,6 +34,9 @@ class FinPlanSalesforceLoginPageState extends State<LoginViaSalesforcePage> {
   @override
   Widget build(BuildContext context) {
   
+    String componentName = 'login_via_salesforce.dart';
+    Logger().d('Build Method run for : $componentName');
+
     String url = '${widget.authUrl}?response_type=code&client_id=${widget.clientId}&redirect_uri=${widget.redirectUri}';
 
     return Scaffold(

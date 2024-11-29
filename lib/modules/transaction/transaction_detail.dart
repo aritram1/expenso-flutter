@@ -46,8 +46,11 @@ class _FinPlanMessageDetailState extends State<FinPlanMessageDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Padding(
+
+    String componentName = 'transaction_detail.dart';
+    Logger().d('Build Method run for : $componentName');
+    
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 100,

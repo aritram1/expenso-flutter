@@ -56,8 +56,10 @@ class _TileWidgetState extends State<TileWidget> {
   @override
   Widget build(BuildContext context) {
     
-    return 
-    Padding(
+    String componentName = 'tile_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
+    return Padding(
       padding: EdgeInsets.all(0.0),
       child: GestureDetector(
         onTap: (){

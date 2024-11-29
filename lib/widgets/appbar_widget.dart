@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 class AppBarWidget extends StatelessWidget {
 
   const AppBarWidget({
@@ -18,6 +19,10 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    String componentName = 'appbar_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     return AppBar(
       title: Text(title),
       leading: IconButton(

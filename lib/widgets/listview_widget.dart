@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class ListViewWidget extends StatefulWidget {
   const ListViewWidget({
@@ -22,6 +23,10 @@ class _ListViewWidgetState extends State<ListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    
+    String componentName = 'listview_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     final taskList = widget.records;
     if(taskList.isNotEmpty){
       return ListView.separated(

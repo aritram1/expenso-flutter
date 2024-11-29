@@ -46,6 +46,8 @@ class _FinPlanMessageDetailState extends State<FinPlanMessageDetail> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'message_detail.dart';
+    Logger().d('Build Method run for : $componentName');
     return 
     Padding(
       padding: const EdgeInsets.all(8.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class StatefulButtonWidget extends StatelessWidget {
   final String text;
@@ -16,6 +17,10 @@ class StatefulButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    String componentName = 'stateful_button_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     return ElevatedButton(
       onPressed: () {
         onSelectionChanged(value); // Notify parent of the selected value

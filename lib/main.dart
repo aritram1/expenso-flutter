@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Logger().d('Oh hello!');
+    String componentName = 'main.dart';
+    Logger().d('Build Method run for : $componentName');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FiNest Main App',

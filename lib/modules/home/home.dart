@@ -71,7 +71,8 @@ class _AppHomePageState extends State<AppHomePage> {
    
   @override
   Widget build(BuildContext context) {
-
+    String componentName = 'home.dart';
+    Logger().d('Build Method run for : $componentName');
     return 
       Scaffold(
           appBar: PreferredSize(

@@ -55,7 +55,10 @@ class DatepickerPanelWidgetState extends State<DatepickerPanelWidget> {
   
   @override
   Widget build(BuildContext context) {
-    if(detaildebug) log.d('The build method has run');
+    
+    String componentName = 'datepicker_panel_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
       child: Column(

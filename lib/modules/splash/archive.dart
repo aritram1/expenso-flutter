@@ -1,6 +1,6 @@
-// import 'package:expenso_app/screens/app_home/finplan__app_home_page.dart';
-// import 'package:expenso_app/screens/login_page/finplan__app_login_view.dart';
-// import 'package:expenso_app/util/finplan__secure_filemanager.dart';
+// import 'package:expenso_app/screens/app_home/app_home_page.dart';
+// import 'package:expenso_app/screens/login_page/app_login_view.dart';
+// import 'package:expenso_app/util/secure_filemanager.dart';
 // import 'package:flutter/material.dart';
 // import 'package:logger/logger.dart';
 

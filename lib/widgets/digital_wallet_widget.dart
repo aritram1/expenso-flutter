@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 class DigitalWalletWidget extends StatelessWidget {
   const DigitalWalletWidget({
@@ -16,9 +17,12 @@ class DigitalWalletWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // String code = each['FinPlan__Account_Code__c'];
+    String componentName = 'digital_wallet.dart';
+    Logger().d('Build Method run for : $componentName');
+    
+    // String code = each['Account_Code__c'];
     String name = data['Name'];
-    double lastBalance = data['FinPlan__Last_Balance__c'] ?? 0;
+    double lastBalance = data['Last_Balance__c'] ?? 0;
     // String lastUpdatedOn = DateFormat('dd-MM-yyyy').format(DateTime.parse(data['LastModifiedDate']));
     
     int daysDiff = DateTime.now().difference(DateTime.parse(data['LastModifiedDate'])).inDays;

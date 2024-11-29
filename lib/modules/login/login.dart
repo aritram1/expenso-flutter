@@ -37,6 +37,8 @@ class LoginPageState extends State<AppLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'login.dart';
+    Logger().d('Build Method run for : $componentName');
     return Scaffold(
       body: Stack(
         children: [

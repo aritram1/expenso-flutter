@@ -87,19 +87,19 @@ class _AllAccountsState extends State<AllAccounts> {
     return ListView(
       children: List.generate(data!.length,(index) {
         var each = data![index];
-        if (each['FinPlan__Account_Code__c'].contains('-SA')) {
+        if (each['Account_Code__c'].contains('-SA')) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 4.0, left: 8.0, right: 8.0),
             child: SavingsAccountWidget(data: each, onCardSelected: () {}),
           );
         } 
-        else if (each['FinPlan__Account_Code__c'].contains('-CC')) {
+        else if (each['Account_Code__c'].contains('-CC')) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 4.0, left: 8.0, right: 8.0),
             child: CreditCardWidget(data: each, onCardSelected: () {}),
           );
         } 
-        else if (each['FinPlan__Account_Code__c'].contains('-WA')) {
+        else if (each['Account_Code__c'].contains('-WA')) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 4.0, left: 8.0, right: 8.0),
             child: DigitalWalletWidget(data: each, onCardSelected: () {}),

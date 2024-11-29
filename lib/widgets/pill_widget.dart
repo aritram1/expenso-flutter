@@ -14,6 +14,10 @@ class PillWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    String componentName = 'pill_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     String selectedPillName = '';
     return Container(
       decoration: BoxDecoration(

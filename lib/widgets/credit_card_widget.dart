@@ -3,6 +3,7 @@
 import 'package:expenso/helper/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 class CreditCardWidget extends StatelessWidget {
   const CreditCardWidget({
@@ -16,8 +17,13 @@ class CreditCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String code = data['FinPlan__Account_Code__c'];
-    String name = data['Name'];
+    // String code = data['Account_Code__c'];
+    
+    String componentName = 'credit_card_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
+    
+     String name = data['Name'];
     String lastUpdatedOn = DateFormat('dd-MM-yyyy').format(DateTime.parse(data['LastModifiedDate']));
     
     int daysDiff = DateTime.now().difference(DateTime.parse(data['LastModifiedDate'])).inDays;
@@ -34,18 +40,18 @@ class CreditCardWidget extends StatelessWidget {
         break;
     }
     
-    double ccMaxLimit = data['FinPlan__CC_Max_Limit__c'] ?? 0;
-    double ccAvlLimit = data['FinPlan__CC_Available_Limit__c'] ?? 0;
+    double ccMaxLimit = data['CC_Max_Limit__c'] ?? 0;
+    double ccAvlLimit = data['CC_Available_Limit__c'] ?? 0;
     double ccSpentAmount = ccMaxLimit - ccAvlLimit;
-    double ccLastPaidAmount = data['FinPlan__CC_Last_Paid_Amount__c'] ?? 0;
+    double ccLastPaidAmount = data['CC_Last_Paid_Amount__c'] ?? 0;
     
-    int ccBillingCycleDate = int.parse(data['FinPlan__CC_Billing_Cycle_Date__c'] ?? '0');    
+    int ccBillingCycleDate = int.parse(data['CC_Billing_Cycle_Date__c'] ?? '0');    
     DateTime ccLastBilledDate = DateTime(DateTime.now().year, DateTime.now().month, ccBillingCycleDate);
-    String ccCurrentBillDueDate = (data['FinPlan__Bill_Due_Date__c'] != null) 
-            ? DateFormat('dd-MM-yyyy').format(DateTime.parse(data['FinPlan__Bill_Due_Date__c']))
+    String ccCurrentBillDueDate = (data['Bill_Due_Date__c'] != null) 
+            ? DateFormat('dd-MM-yyyy').format(DateTime.parse(data['Bill_Due_Date__c']))
             : DateFormat('dd-MM-yyyy').format(ccLastBilledDate.add(const Duration(days: AppConstants.CREDIT_CARD_GRACE_PERIOD)));
     
-    String ccLastBillPaidDateStr = data['FinPlan__CC_Last_Bill_Paid_Date__c'];
+    String ccLastBillPaidDateStr = data['CC_Last_Bill_Paid_Date__c'];
     DateTime ccLastBillPaidDate = DateTime.parse('${ccLastBillPaidDateStr}T00:00:00');
 
     bool ccBillIsDue = ccLastBillPaidDate.isBefore(ccLastBilledDate);

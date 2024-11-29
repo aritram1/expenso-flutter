@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 class SavingsAccountWidget extends StatelessWidget {
   const SavingsAccountWidget({
@@ -33,9 +34,12 @@ class SavingsAccountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // String code = data['FinPlan__Account_Code__c'];
+    String componentName = 'savings_account_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
+    // String code = data['Account_Code__c'];
     String name = data['Name'];
-    double lastBalance = data['FinPlan__Last_Balance__c'] ?? 0;
+    double lastBalance = data['Last_Balance__c'] ?? 0;
     // String lastUpdatedOn = DateFormat('dd-MM-yyyy').format(DateTime.parse(data['LastModifiedDate']));
     String lastUpdated = getTimeDifferenceInString(data['LastModifiedDate']);    
 

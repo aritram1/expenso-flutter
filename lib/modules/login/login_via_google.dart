@@ -33,7 +33,10 @@ class LoginViaGooglePageState extends State<LoginViaGooglePage> {
 
   @override
   Widget build(BuildContext context) {
-  
+    
+    String componentName = 'login_via_google.dart';
+    Logger().d('Build Method run for : $componentName');
+
     String url = '${widget.authUrl}?response_type=code&client_id=${widget.clientId}&redirect_uri=${widget.redirectUri}';
 
     return Scaffold(

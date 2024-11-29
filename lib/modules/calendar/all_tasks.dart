@@ -1,9 +1,9 @@
 // // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-// import 'package:expenso_app/db/model/finplan__task.dart';
-// import 'package:expenso_app/util/finplan__AppConstants.dart';
-// import 'package:expenso_app/util/finplan__salesforce_util.dart';
-// import 'package:expenso_app/widgets/finplan__button_stateful.dart';
+// import 'package:expenso_app/db/model/task.dart';
+// import 'package:expenso_app/util/AppConstants.dart';
+// import 'package:expenso_app/util/salesforce_util.dart';
+// import 'package:expenso_app/widgets/button_stateful.dart';
 // import 'package:flutter/material.dart';
 // import 'package:logger/logger.dart';
 

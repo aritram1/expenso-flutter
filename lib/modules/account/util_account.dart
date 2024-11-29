@@ -14,9 +14,9 @@ class AccountUtil {
     List<Map<String, dynamic>> allAccounts = [];
 
     Map<String, dynamic> response = await SalesforceQueryController.queryFromSalesforce(
-      objAPIName: 'FinPlan__Bank_Account__c',
-      fieldList: ['Id', 'FinPlan__CC_Last_Paid_Amount__c', 'FinPlan__Account_Code__c', 'Name', 'FinPlan__CC_Billing_Cycle_Date__c', 'FinPlan__CC_Last_Bill_Paid_Date__c', 'FinPlan__Last_Balance__c', 'FinPlan__CC_Available_Limit__c', 'FinPlan__CC_Max_Limit__c','FinPlan__Bill_Due_Date__c', 'LastModifiedDate'], 
-      whereClause: 'FinPlan__Active__c = true',
+      objAPIName: 'Bank_Account__c',
+      fieldList: ['Id', 'CC_Last_Paid_Amount__c', 'Account_Code__c', 'Name', 'CC_Billing_Cycle_Date__c', 'CC_Last_Bill_Paid_Date__c', 'Last_Balance__c', 'CC_Available_Limit__c', 'CC_Max_Limit__c','Bill_Due_Date__c', 'LastModifiedDate'], 
+      whereClause: 'Active__c = true',
       orderByClause: 'LastModifiedDate desc',
       //count : 120
       );

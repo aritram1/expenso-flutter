@@ -30,6 +30,8 @@ class _FinPlanCalendarState extends State<FinPlanCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'calendar.dart';
+    Logger().d('Build Method run for : $componentName');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calendar and Tasks'),

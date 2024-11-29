@@ -68,6 +68,10 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
 
   @override
   Widget build(BuildContext context) {
+    
+    String componentName = 'all_transactions.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transactions'),

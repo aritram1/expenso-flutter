@@ -18,6 +18,10 @@ class EnhancedPillWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    String componentName = 'enhanced_pill_widget.dart';
+    Logger().d('Build Method run for : $componentName');
+    
+    
     dataMapByTypes = generateTypesFromData();
     List<String> allTypes = [];
     

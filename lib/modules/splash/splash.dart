@@ -17,6 +17,10 @@ class _MySplashPageState extends State<AppSplashPage> {
   
   @override
   Widget build(BuildContext context) {
+    
+    String componentName = 'splash.dart';
+    Logger().d('Build Method run for : $componentName');
+    
     return FutureBuilder(
       future: getToken(), 
       builder: (context, snapshot) {

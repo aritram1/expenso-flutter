@@ -68,6 +68,8 @@ class FinPlanAllMessagesState extends State<FinPlanAllMessages> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'all_messages.dart';
+    Logger().d('Build Method run for : $componentName');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Messages'),

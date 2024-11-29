@@ -91,11 +91,33 @@ class SMSManager {
         "Sender__c": "${sms.sender}",
         "Received_At__c": sms.date.toString(),
         "Device__c": deviceName,
+        "External_Id__c" : generateExternalId(sms.date.toString()), // make it all numeric by replacing comma etc
         "Created_From__c" : "Sync" // Explicitly set as 'Sync' so it does not fire up the trigger on SMS Object
       };
       convertedMessages.add(record);
     }
+    
+    // testing
+    if(convertedMessages.isEmpty){
+      convertedMessages.add({
+        "Content__c": "Amt Sent Rs.90.00 From HDFC Bank A/C *9560 To MUKESH On 07-09 Ref 425144019791 Not You? Call 18002586161/SMS BLOCK UPI to 7308080808",
+        "Sender__c": "AD-HDFCBK",
+        "Received_At__c": "2024-11-28 14:53:47.473",
+        "Device__c": deviceName,
+        "External_Id__c" : generateExternalId("2024-11-28 14:53:47.473"),
+        "Created_From__c" : "Sync"
+      });
+    }
+    
     return convertedMessages;
+  }
+
+  
+
+  // This function makes a string all numeric by replacing dash, space, colon and dot
+  static String generateExternalId(String input){
+    String extID = input.replaceAll('-', '').replaceAll(' ', '').replaceAll(':', '').replaceAll('.', '');
+    return extID;
   }
 
 }

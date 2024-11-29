@@ -24,6 +24,8 @@ class _AllAccountsState extends State<AllAccounts> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'all_accounts';
+    Logger().d('Build Method run for : $componentName');
     return FutureBuilder(
       future: AccountUtil.getAllAccountsData(),
       builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {

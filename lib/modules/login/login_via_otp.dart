@@ -55,6 +55,8 @@ class _LoginViaOTPPageState extends State<LoginViaOTPPage> {
 
   @override
   Widget build(BuildContext context) {
+    String componentName = 'login_via_otp.dart';
+    Logger().d('Build Method run for : $componentName');
     return Scaffold(
       body: Stack(
         children: [

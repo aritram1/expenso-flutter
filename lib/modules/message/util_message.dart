@@ -94,7 +94,8 @@ class MessagesUtil {
     log.d('txnMessagesAsKeyValuePairs=> $txnMessagesAsKeyValuePairs');
     Map<String, dynamic> createResponse = await SalesforceDMLController.dmlToSalesforce(
         opType: AppConstants.INSERT,
-        objAPIName : 'SMS_Message__c', 
+        // objAPIName : 'SMS_Message__c', 
+        objAPIName : 'SMS_Platform_Event__e', 
         fieldNameValuePairs : txnMessagesAsKeyValuePairs
     );
 

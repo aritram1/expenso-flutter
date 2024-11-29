@@ -16,7 +16,7 @@ class LoginProviderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    String componentName = 'login_provider.dart';
+    String componentName = 'login_provider_widget.dart';
     Logger().d('Build Method run for : $componentName');
     
     return GestureDetector(

@@ -6,10 +6,8 @@ import 'package:expenso/helper/salesforce_oauth2_controller.dart';
 import 'package:expenso/modules/home/home.dart';
 import 'package:expenso/widgets/wavy_clipper_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import 'package:expenso/modules/login/login_via_otp.dart';
-import 'package:expenso/modules/login/login_via_salesforce.dart';
 import 'package:expenso/widgets/login_provider_widget.dart';
 
 class AppLoginPage extends StatefulWidget {
@@ -29,15 +27,15 @@ class AppLoginPage extends StatefulWidget {
   final bool showLoginButton;
 
   @override
-  LoginPageState createState() => LoginPageState();
+  AppLoginPageState createState() => AppLoginPageState();
 }
 
-class LoginPageState extends State<AppLoginPage> {
+class AppLoginPageState extends State<AppLoginPage> {
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    String componentName = 'login.dart';
+    String componentName = 'app_login.dart';
     Logger().d('Build Method run for : $componentName');
     return Scaffold(
       body: Stack(

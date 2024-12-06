@@ -80,14 +80,17 @@ class SMSManager {
 
   // Method to convert the SMS Messages to a format that will be used for insert method later
   static Future<List<Map<String, dynamic>>> convertMessagesToMap(List<SmsMessage> messages) async{
+    
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     String deviceName = androidInfo.model;
 
     List<Map<String, dynamic>> convertedMessages = [];
     for (SmsMessage sms in messages) {
+      String? content = (sms.body != null && sms.body!.length > 255) ? sms.body?.substring(0, 255) : sms.body;
       Map<String, dynamic> record = {
-        "Content__c": "${sms.body != null && sms.body!.length > 255 ? sms.body?.substring(0, 255) : sms.body}",
+        "Content__c": "$content",
+        "Original_Content__c" : "$content",
         "Sender__c": "${sms.sender}",
         "Received_At__c": sms.date.toString(),
         "Device__c": deviceName,
@@ -97,26 +100,16 @@ class SMSManager {
       convertedMessages.add(record);
     }
     
-    // testing
-    if(convertedMessages.isEmpty){
-      convertedMessages.add({
-        "Content__c": "Amt Sent Rs.90.00 From HDFC Bank A/C *9560 To MUKESH On 07-09 Ref 425144019791 Not You? Call 18002586161/SMS BLOCK UPI to 7308080808",
-        "Sender__c": "AD-HDFCBK",
-        "Received_At__c": "2024-11-28 14:53:47.473",
-        "Device__c": deviceName,
-        "External_Id__c" : generateExternalId("2024-11-28 14:53:47.473"),
-        "Created_From__c" : "Sync"
-      });
-    }
-    
     return convertedMessages;
   }
 
-  
-
   // This function makes a string all numeric by replacing dash, space, colon and dot
   static String generateExternalId(String input){
-    String extID = input.replaceAll('-', '').replaceAll(' ', '').replaceAll(':', '').replaceAll('.', '');
+    String extID = input
+                      .replaceAll('-', '')
+                      .replaceAll(' ', '')
+                      .replaceAll(':', '')
+                      .replaceAll('.', '');
     return extID;
   }
 

@@ -107,6 +107,20 @@ class FinPlanTransactionUtil {
     return createResponse;
   }
   
+  // Method to sync transaction messages with Salesforce
+  static Future<List<String>> syncWithSalesforceWithPE() async{
+
+    // Get the messages and convert to desired payload, then send as platform events
+    List<SmsMessage> messages = await SMSManager.getInboxMessages(count : AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE);
+    List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
+    List<String> responses = [];
+    for(Map<String, dynamic> msg in messagesMap){
+      String currentResponse = await SalesforceCustomRestController.callSalesforceAPI(endpointUrl: AppConstants.CUSTOM_ENDPOINT_FOR_SMS_PE, httpMethod: 'POST', body: msg);
+      responses.add(currentResponse);
+    }
+    return responses;
+  }
+
   static Future<String> hardDeleteMessagesAndTransactions(String deviceId) async{
     // Call the specific API to delete all messages and transactions
     String mesageAndTransactionsDeleteMessage = await SalesforceCustomRestController.callSalesforceAPI(

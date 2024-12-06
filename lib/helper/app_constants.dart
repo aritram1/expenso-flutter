@@ -48,7 +48,7 @@ class AppConstants{
   static const int STATUS_CODE_OK = 200;
   static const int STATUS_CODE_NOT_OK = 400;
 
-  static const int NUMBER_OF_MESSAGES_TO_RETRIEVE = 2000;
+  static const int NUMBER_OF_MESSAGES_TO_RETRIEVE = 10; //testing
 
   // static const String OAUTH2_CLIENT_ID = '3MVG9wt4IL4O5wvIBCa0yrhLb82rC8GGk03G2F26xbcntt9nq1JXS75mWYnnuS2rxwlghyQczUFgX4whptQeT';
   // static const String OAUTH2_CLIENT_SECRET = '3E0A6C0002E99716BD15C7C35F005FFFB716B8AA2DE28FBD49220EC238B2FFC7';
@@ -66,6 +66,8 @@ class AppConstants{
   static const String CUSTOM_ENDPOINT_FOR_SYNC_MESSAGES = '/services/apexrest/FinPlan/api/sms/sync/*';
   static const String CUSTOM_ENDPOINT_FOR_APPROVE_MESSAGES = '/services/apexrest/FinPlan/api/sms/approve/*';
   static const String CUSTOM_ENDPOINT_FOR_DELETE_ALL_MESSAGES_AND_TRANSACTIONS = '/services/apexrest/FinPlan/api/delete/*';
+
+  static const String CUSTOM_ENDPOINT_FOR_SMS_PE = '/services/data/v59.0/sobjects/SMS_Platform_Event__e';
 
   // STANDARD REST ENDPOINTS (Not Configurable)
   static const String COMPOSITE_URL_FOR_INSERT = '/services/data/v59.0/composite/tree/';

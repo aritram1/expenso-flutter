@@ -91,8 +91,11 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
                   isLoading = true;
                 });
 
-                var result = await FinPlanTransactionUtil.syncWithSalesforce(); // Call the method now
-                Logger().d('result is=> $result');
+                // Here directly SMS__c records are inserted, hence deprecated
+                // var result = await FinPlanTransactionUtil.syncWithSalesforce(); 
+                
+                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(); // here PE are sent
+                Logger().d('message sync result is=> $results');
 
                 // TB checked if required
                 // After sync, reload data based on current date selections

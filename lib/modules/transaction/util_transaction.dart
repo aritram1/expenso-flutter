@@ -6,7 +6,6 @@ import 'package:expenso/helper/app_constants.dart';
 import 'package:expenso/helper/app_exception.dart';
 import 'package:expenso/helper/app_sms_manager.dart';
 import 'package:expenso/helper/salesforce_custom_rest_controller.dart';
-import 'package:expenso/helper/salesforce_dml_controller.dart';
 import 'package:expenso/helper/salesforce_query_controller.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
@@ -83,35 +82,32 @@ class FinPlanTransactionUtil {
     return Future.value(allTransactionMessages); 
   }
 
+  // TB decided later if the following method is needed to be here
   // Method to sync transaction messages with Salesforce
-  static Future<Map<String, dynamic>> syncWithSalesforce() async{
-
-    String deviceId = await getDeviceId();
-
-    // Call the specific API to delete all messages and transactions
-    String mesageAndTransactionsDeleteMessage = await hardDeleteMessagesAndTransactions(deviceId);
-    if(detaildebug) log.d('mesageAndTransactionsDeleteMessage is -> $mesageAndTransactionsDeleteMessage');
-    
-    // Then retrieve, convert and call the insert API for inserting messages
-    List<SmsMessage> messages = await SMSManager.getInboxMessages(count : AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE);
-    List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
-    Map<String, dynamic> createResponse = await SalesforceDMLController.dmlToSalesforce(
-        opType: AppConstants.INSERT,
-        objAPIName : 'SMS__c', // 'SMS_Message__c', 
-        fieldNameValuePairs : messagesMap
-    );
-
-    if(detaildebug) log.d('syncMessages response Data => ${createResponse['data'].toString()}');
-    if(detaildebug) log.d('syncMessages response Errors => ${createResponse['errors'].toString()}');
-
-    return createResponse;
-  }
+  // static Future<Map<String, dynamic>> syncWithSalesforce() async{
+  //   String deviceId = await getDeviceId();
+  //   // Call the specific API to delete all messages and transactions
+  //   String mesageAndTransactionsDeleteMessage = await hardDeleteMessagesAndTransactions(deviceId);
+  //   if(detaildebug) log.d('mesageAndTransactionsDeleteMessage is -> $mesageAndTransactionsDeleteMessage');
+  //   // Then retrieve, convert and call the insert API for inserting messages
+  //   List<SmsMessage> messages = await SMSManager.getInboxMessages(count : AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE);
+  //   List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
+  //   Map<String, dynamic> createResponse = await SalesforceDMLController.dmlToSalesforce(
+  //       opType: AppConstants.INSERT,
+  //       objAPIName : 'SMS__c', // 'SMS_Message__c', 
+  //       fieldNameValuePairs : messagesMap
+  //   );
+  //   if(detaildebug) log.d('syncMessages response Data => ${createResponse['data'].toString()}');
+  //   if(detaildebug) log.d('syncMessages response Errors => ${createResponse['errors'].toString()}');
+  //   return createResponse;
+  // }
+  
   
   // Method to sync transaction messages with Salesforce
-  static Future<List<String>> syncWithSalesforceWithPE() async{
+  static Future<List<String>> syncWithSalesforceWithPE(int numberOfMessagesToRetrieve) async{
 
     // Get the messages and convert to desired payload, then send as platform events
-    List<SmsMessage> messages = await SMSManager.getInboxMessages(count : AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE);
+    List<SmsMessage> messages = await SMSManager.getTransactionalMessages(count : numberOfMessagesToRetrieve);
     List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
     List<String> responses = [];
     for(Map<String, dynamic> msg in messagesMap){

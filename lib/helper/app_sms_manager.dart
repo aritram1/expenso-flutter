@@ -20,8 +20,7 @@ class SMSManager {
   static Future<List<SmsMessage>> getInboxMessages({
     List<SmsQueryKind> kinds = const[SmsQueryKind.inbox], // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
     String? sender, 
-    required int count}) 
-  async {
+    required int count}) async {
     
     List<SmsMessage> messages = [];
 
@@ -47,7 +46,6 @@ class SMSManager {
     
     bool isOTP = false;
     bool isPersonal = false;
-    bool isTransactional = false;
     List<SmsMessage> transactionalMessages = [];
     
     List<SmsMessage> msgList = await getInboxMessages(count : count);
@@ -58,15 +56,11 @@ class SMSManager {
       
       isOTP = msgUppercase.contains('OTP') || msgUppercase.contains('VERIFICATION CODE');
       isPersonal = msgList[i].sender!.toUpperCase().startsWith('+');
-      isTransactional = msgUppercase.contains('RS ') 
-                        || msgUppercase.contains('RS. ') 
-                        || msgUppercase.contains('RS.')
-                        || msgUppercase.contains('INR ');
       
       // Add to the message list if 
       // - Its NOT an OTP OR personal message
       // - but a transactional message
-      if(!isOTP && !isPersonal && isTransactional){
+      if(!isOTP && !isPersonal){
         transactionalMessages.add(msgList[i]);
       }
     }

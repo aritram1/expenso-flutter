@@ -27,6 +27,7 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
   static List<Map<String, dynamic>> allData = [];
   static Set<String> availableTypes = {};
   Map<String, List<Map<String, dynamic>>> filteredDataMap = {};
+  static int numberOfMessagesToRetrieve = AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE; // a default value
 
   static bool isLoading = false;
 
@@ -81,25 +82,23 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
               if (isLoading) {
                 return; // Early return in case the page is already loading
               }
-              BuildContext currentContext = context;
+              
               // Get an alert dialog as a confirmation box
+              BuildContext currentContext = context;
               bool shouldProceed = await showConfirmationBox(currentContext, AppConstants.SYNC);
+              
               if (shouldProceed) {
 
                 // Set the loading indicator
                 setState(() {
                   isLoading = true;
                 });
-
-                // Here directly SMS__c records are inserted, hence deprecated
-                // var result = await FinPlanTransactionUtil.syncWithSalesforce(); 
                 
-                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(); // here PE are sent
-                Logger().d('message sync result is=> $results');
+                // var result = await FinPlanTransactionUtil.syncWithSalesforce(); // Here directly SMS__c records are inserted, hence deprecated
 
-                // TB checked if required
-                // After sync, reload data based on current date selections
-                // var result = await handleDateRangeSelection(selectedStartDate, selectedEndDate);
+                if(numberOfMessagesToRetrieve == 0) numberOfMessagesToRetrieve = AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE; 
+                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(numberOfMessagesToRetrieve); // here PE are sent
+                Logger().d('message sync result is=> $results');
 
                 // Unset the loading indicator
                 setState(() {

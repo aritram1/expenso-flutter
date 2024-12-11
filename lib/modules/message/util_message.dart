@@ -88,7 +88,7 @@ class MessagesUtil {
     if(detaildebug) log.d('mesageAndTransactionsDeleteMessage is -> $mesageAndTransactionsDeleteMessage');
     
     // Then retrieve, convert and call the insert API for inserting messages
-    List<SmsMessage> txnMessages = await SMSManager.getTransactionalMessages(count : AppConstants.COUNT_OF_MESSAGES_TO_RETRIEVE);
+    List<SmsMessage> txnMessages = await SMSManager.getTransactionalMessages(count : AppConstants.MAX_COUNT_OF_MESSAGES_TO_RETRIEVE);
     List<Map<String, dynamic>> txnMessagesAsKeyValuePairs = await SMSManager.convertMessagesToMap(txnMessages);
     log.d('txnMessagesAsKeyValuePairs length=> ${txnMessagesAsKeyValuePairs.length}');
     log.d('txnMessagesAsKeyValuePairs=> $txnMessagesAsKeyValuePairs');

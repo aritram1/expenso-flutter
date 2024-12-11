@@ -27,7 +27,7 @@ class FinPlanAllMessagesState extends State<FinPlanAllMessages> {
   static List<Map<String, dynamic>> allData = [];
   static Set<String> availableTypes = {};
   Map<String, List<Map<String, dynamic>>> filteredDataMap = {};
-  static int countOfMessagesToRetrieve = AppConstants.COUNT_OF_MESSAGES_TO_RETRIEVE;
+  static int countOfMessagesToRetrieve = AppConstants.MAX_COUNT_OF_MESSAGES_TO_RETRIEVE;
 
   static bool isLoading = false;
 

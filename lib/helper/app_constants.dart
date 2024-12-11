@@ -19,6 +19,7 @@ class AppConstants{
 
   static const String SPLASH_PAGE_TITLE = 'Splash Page';
   static const String HOME_PAGE_TITLE = 'Home Page';
+
   static const String DELETE_MESSAGES = 'delete_messages';
   static const String DELETE_TRANSACTIONS = 'delete_transactions';
   static const String APPROVE_MESSAGES = 'approve_messages';
@@ -29,7 +30,7 @@ class AppConstants{
 
   static const int STATUS_CODE_OK = 200;
   static const int STATUS_CODE_NOT_OK = 400;
-  static const int COUNT_OF_MESSAGES_TO_RETRIEVE = 2000;
+  static const int MAX_COUNT_OF_MESSAGES_TO_RETRIEVE = 2000;
   
   static const int CREDIT_CARD_GRACE_PERIOD = 10;
   static const String TASK_STATUS_NORMAL = 'Normal';

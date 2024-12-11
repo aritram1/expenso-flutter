@@ -27,8 +27,8 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
   static List<Map<String, dynamic>> allData = [];
   static Set<String> availableTypes = {};
   Map<String, List<Map<String, dynamic>>> filteredDataMap = {};
-  static int countOfMessagesToRetrieve = AppConstants.MAX_COUNT_OF_MESSAGES_TO_RETRIEVE;
-
+  static int countOfMessagesToRetrieve = 0;
+  
   static bool isLoading = false;
 
   dynamic Function(String) onLoadComplete = (result) {
@@ -80,13 +80,12 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
               // Get an alert dialog as a confirmation box
               BuildContext currentContext = context;
               bool shouldProceed = await showConfirmationBox(
-                currentContext, 
-                AppConstants.SYNC, 
-                countOfMessagesToRetrieve,
-                (int inputReceived) {
+                context : currentContext, 
+                opType : AppConstants.SYNC, 
+                onConfirmed : (int messageCount) {
                   setState(() {
-                    countOfMessagesToRetrieve = inputReceived;
-                    Logger().d('Updated countOfMessagesToRetrieve = $inputReceived');
+                    countOfMessagesToRetrieve = messageCount;
+                    Logger().d('Updated countOfMessagesToRetrieve in setState => $messageCount');
                   });
                 },  
               );
@@ -100,16 +99,15 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
                   isLoading = true;
                 });
                 
-                if(countOfMessagesToRetrieve == 0){
-                  countOfMessagesToRetrieve = AppConstants.MAX_COUNT_OF_MESSAGES_TO_RETRIEVE;
-                }
-                
                 // For testing : To mock async method `syncWithSalesforceWithPE`, use below line.
                 // await Future.delayed(Duration(seconds: 1));
 
-                // Here directly SMS__c records are inserted, hence deprecated
+                // Deprecated method
+                // Direct insertion to SMS__c records
                 // var result = await FinPlanTransactionUtil.syncWithSalesforce(); 
                 
+                // New method
+                // Insertion via platform event : SMS_Platform_Event__e
                 List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(countOfMessagesToRetrieve); // here PE are sent
                 Logger().d('message sync result is=> $results');
 
@@ -381,10 +379,10 @@ getAllTiles(var data) {
 }
 
 // A confirmation box to show if its ok to proceed with sync and delete operation
-Future<dynamic> showConfirmationBox(BuildContext context, String opType, int countOfMessagesToRetrieve, Function(int) onConfirmed) {
+Future<dynamic> showConfirmationBox({required BuildContext context, required String opType, required Function(int) onConfirmed}) {
   
   final TextEditingController inputMessageCountController = TextEditingController();
-  inputMessageCountController.text = countOfMessagesToRetrieve.toString();
+  inputMessageCountController.text = AppConstants.MAX_COUNT_OF_MESSAGES_TO_RETRIEVE.toString();
   
   String title = 'Please confirm';
   String choiceYes = 'Yes';
@@ -422,11 +420,10 @@ Future<dynamic> showConfirmationBox(BuildContext context, String opType, int cou
           ),
           TextButton(
             onPressed: () {
-              countOfMessagesToRetrieve = int.parse(inputMessageCountController.text);
-              onConfirmed(countOfMessagesToRetrieve);
-              Logger().d('Count of messages inside showConfirmationBox = >$countOfMessagesToRetrieve');
+              int messageCount = inputMessageCountController.text.isEmpty ? 0 : int.parse(inputMessageCountController.text);
+              Logger().d('Count of messages inside showConfirmationBox method => $messageCount');
+              onConfirmed(messageCount);
               Navigator.of(context).pop(true); // User clicked Yes
-              
             },
             child: Text(choiceYes),
           ),

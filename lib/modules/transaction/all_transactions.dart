@@ -27,7 +27,7 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
   static List<Map<String, dynamic>> allData = [];
   static Set<String> availableTypes = {};
   Map<String, List<Map<String, dynamic>>> filteredDataMap = {};
-  static int numberOfMessagesToRetrieve = AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE; // a default value
+  static int countOfMessagesToRetrieve = AppConstants.COUNT_OF_MESSAGES_TO_RETRIEVE;
 
   static bool isLoading = false;
 
@@ -46,25 +46,19 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
   }
 
   void initTransactions() async {
-    
     setState(() {
       isLoading = true;
     });
-    
-    allData = await getAllTransactionTransactions(selectedStartDate, selectedEndDate);
-    // tableData = allData;
-    // filteredDataMap = generateDataMap(allData);
-
-    // To force rebuild the state so that dependent widgets gets rebuilt
+    await loadTransactions();
     setState(() {
-      tableData = allData;
-      filteredDataMap = generateDataMap(allData);
       isLoading = false;
     });
   }
 
-  Future<List<Map<String, dynamic>>> getAllTransactions() async {
-    return getAllTransactionTransactions(selectedStartDate, selectedEndDate);
+  Future<void> loadTransactions() async {
+    allData = await getAllTransactionTransactions(selectedStartDate, selectedEndDate);
+    tableData = allData;
+    filteredDataMap = generateDataMap(allData);
   }
 
   @override
@@ -85,8 +79,20 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
               
               // Get an alert dialog as a confirmation box
               BuildContext currentContext = context;
-              bool shouldProceed = await showConfirmationBox(currentContext, AppConstants.SYNC);
+              bool shouldProceed = await showConfirmationBox(
+                currentContext, 
+                AppConstants.SYNC, 
+                countOfMessagesToRetrieve,
+                (int inputReceived) {
+                  setState(() {
+                    countOfMessagesToRetrieve = inputReceived;
+                    Logger().d('Updated countOfMessagesToRetrieve = $inputReceived');
+                  });
+                },  
+              );
               
+              Logger().d('Count of messages inside build = >$countOfMessagesToRetrieve');
+
               if (shouldProceed) {
 
                 // Set the loading indicator
@@ -94,10 +100,17 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
                   isLoading = true;
                 });
                 
-                // var result = await FinPlanTransactionUtil.syncWithSalesforce(); // Here directly SMS__c records are inserted, hence deprecated
+                if(countOfMessagesToRetrieve == 0){
+                  countOfMessagesToRetrieve = AppConstants.COUNT_OF_MESSAGES_TO_RETRIEVE;
+                }
+                
+                // For testing : To mock async method `syncWithSalesforceWithPE`, use below line.
+                // await Future.delayed(Duration(seconds: 1));
 
-                if(numberOfMessagesToRetrieve == 0) numberOfMessagesToRetrieve = AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE; 
-                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(numberOfMessagesToRetrieve); // here PE are sent
+                // Here directly SMS__c records are inserted, hence deprecated
+                // var result = await FinPlanTransactionUtil.syncWithSalesforce(); 
+                
+                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(countOfMessagesToRetrieve); // here PE are sent
                 Logger().d('message sync result is=> $results');
 
                 // Unset the loading indicator
@@ -198,11 +211,18 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
     return icon;
   }
 
+  // An overridden method to get widget data. Note even if the start/end date is not provided.
+  // It defaults values here, so it can call the next method 
+  // `getAllTransactions(DateTime startDate, DateTime endDate)`
+  Future<List<Map<String, dynamic>>> getAllTransactions() async {
+    return getAllTransactionTransactions(selectedStartDate, selectedEndDate);
+  }
+
   // method to get widget data
   Future<List<Map<String, dynamic>>> getAllTransactionTransactions(DateTime startDate, DateTime endDate) async {
     try {
       allData = await FinPlanTransactionUtil.getAllTransactionMessages(startDate: startDate, endDate: endDate);
-      Logger().d('${allData.length} records are retrieved.'); // LOL allData is: $allData');
+      Logger().d('${allData.length} records are retrieved.');
       
       filteredDataMap = generateDataMap(allData);
       Logger().d('filteredDataMap is: $filteredDataMap');
@@ -361,7 +381,11 @@ getAllTiles(var data) {
 }
 
 // A confirmation box to show if its ok to proceed with sync and delete operation
-Future<dynamic> showConfirmationBox(BuildContext context, String opType) {
+Future<dynamic> showConfirmationBox(BuildContext context, String opType, int countOfMessagesToRetrieve, Function(int) onConfirmed) {
+  
+  final TextEditingController inputMessageCountController = TextEditingController();
+  inputMessageCountController.text = countOfMessagesToRetrieve.toString();
+  
   String title = 'Please confirm';
   String choiceYes = 'Yes';
   String choiceNo = 'No';
@@ -374,7 +398,21 @@ Future<dynamic> showConfirmationBox(BuildContext context, String opType) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        content: Text(content),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(content),
+            SizedBox(height: 20),
+            TextField(
+              controller: inputMessageCountController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "How many messages to Sync?",
+              ),
+            ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () {
@@ -384,10 +422,11 @@ Future<dynamic> showConfirmationBox(BuildContext context, String opType) {
           ),
           TextButton(
             onPressed: () {
+              countOfMessagesToRetrieve = int.parse(inputMessageCountController.text);
+              onConfirmed(countOfMessagesToRetrieve);
+              Logger().d('Count of messages inside showConfirmationBox = >$countOfMessagesToRetrieve');
               Navigator.of(context).pop(true); // User clicked Yes
-              // setState(() {
-              //   isLoading = true;
-              // });
+              
             },
             child: Text(choiceYes),
           ),

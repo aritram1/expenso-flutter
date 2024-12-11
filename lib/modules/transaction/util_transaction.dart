@@ -90,7 +90,7 @@ class FinPlanTransactionUtil {
   //   String mesageAndTransactionsDeleteMessage = await hardDeleteMessagesAndTransactions(deviceId);
   //   if(detaildebug) log.d('mesageAndTransactionsDeleteMessage is -> $mesageAndTransactionsDeleteMessage');
   //   // Then retrieve, convert and call the insert API for inserting messages
-  //   List<SmsMessage> messages = await SMSManager.getInboxMessages(count : AppConstants.NUMBER_OF_MESSAGES_TO_RETRIEVE);
+  //   List<SmsMessage> messages = await SMSManager.getInboxMessages(count : AppConstants.OF_MESSAGES_TO_RETRIEVE);
   //   List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
   //   Map<String, dynamic> createResponse = await SalesforceDMLController.dmlToSalesforce(
   //       opType: AppConstants.INSERT,

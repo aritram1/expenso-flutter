@@ -29,7 +29,7 @@ class AppConstants{
 
   static const int STATUS_CODE_OK = 200;
   static const int STATUS_CODE_NOT_OK = 400;
-  static const int NUMBER_OF_MESSAGES_TO_RETRIEVE = 2000;
+  static const int COUNT_OF_MESSAGES_TO_RETRIEVE = 2000;
   
   static const int CREDIT_CARD_GRACE_PERIOD = 10;
   static const String TASK_STATUS_NORMAL = 'Normal';

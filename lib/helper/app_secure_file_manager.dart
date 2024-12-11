@@ -18,21 +18,21 @@ class SecureFileManager{
   // Access Token Methods
   ////////////////////////////////////////////////////////////////////////
   static Future<String?> getAccessToken() async {
-    Logger().d('Inside getAccessToken method of SecureFilemanager class');
+    // Logger().d('Inside getAccessToken method of SecureFilemanager class');
     String? accessToken;
     bool expired = await isTokenExpired();
     String? refreshToken = await SecureFileManager.getRefreshToken();
-    Logger().d('Inside getAccessToken method of SecureFilemanager class : token expired? ${expired ? 'Yes' : 'No'}');
+    // Logger().d('Inside getAccessToken method of SecureFilemanager class : token expired? ${expired ? 'Yes' : 'No'}');
     if(!expired){
       accessToken = await storage.read(key: 'access_token');
-      Logger().d('Token not expired. So returned old token $accessToken');
+      // Logger().d('Token not expired. So returned old token $accessToken');
     }
     else if(expired && refreshToken != null){
       accessToken = await getNewAccessToken(refreshToken);
-      Logger().d('Token expired, so this is the new token $accessToken');
+      // Logger().d('Token expired, so this is the new token $accessToken');
     }
     else{
-      Logger().d('The refresh token is not present, meaning it is first time login to the app');
+      // Logger().d('The refresh token is not present, meaning it is first time login to the app');
       // throw FinPlanException('First time login redirect to login page!');
     }
     return accessToken;
@@ -47,14 +47,14 @@ class SecureFileManager{
   }
 
   static Future<String?> getNewAccessToken(String refreshToken) async {
-    Logger().d('Inside getNewAccessToken method of SecureFilemanager class. RefreshToken is $refreshToken');
+    // Logger().d('Inside getNewAccessToken method of SecureFilemanager class. RefreshToken is $refreshToken');
     if(refreshToken.isNotEmpty){
       await SalesforceLoginController.loginToSalesforceWithRefreshToken(refreshToken : refreshToken);
       String newAccessToken = await storage.read(key: 'access_token') ?? 'ERROR';
       return newAccessToken;
     }
     else{
-      Logger().d('In SecureFileManager class, refreshToken is retrieved as empty!');
+      // Logger().d('In SecureFileManager class, refreshToken is retrieved as empty!');
       return null;
     }
   }

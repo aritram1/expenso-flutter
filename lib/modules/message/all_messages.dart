@@ -27,6 +27,7 @@ class FinPlanAllMessagesState extends State<FinPlanAllMessages> {
   static List<Map<String, dynamic>> allData = [];
   static Set<String> availableTypes = {};
   Map<String, List<Map<String, dynamic>>> filteredDataMap = {};
+  static int countOfMessagesToRetrieve = AppConstants.COUNT_OF_MESSAGES_TO_RETRIEVE;
 
   static bool isLoading = false;
 
@@ -81,16 +82,19 @@ class FinPlanAllMessagesState extends State<FinPlanAllMessages> {
               }
               BuildContext currentContext = context;
               // Get an alert dialog as a confirmation box
-              bool shouldProceed = await showConfirmationBox(currentContext, AppConstants.SYNC);
+              bool shouldProceed = await showConfirmationBox(currentContext, AppConstants.SYNC, countOfMessagesToRetrieve);
               if (shouldProceed) {
 
+                Logger().d('The countOfMessagesToRetrieve is => $countOfMessagesToRetrieve');
+                
                 // Set the loading indicator
                 setState(() {
                   isLoading = true;
                 });
 
-                var result = await MessagesUtil.syncMessages(); // Call the method now
-                Logger().d('result is=> $result');
+                await Future.delayed(Duration(seconds: 1));
+                // var result = await MessagesUtil.syncMessages(); // Call the method now
+                // Logger().d('result is=> $result');
 
                 // TB checked if required
                 // After sync, reload data based on current date selections
@@ -357,7 +361,11 @@ getAllTiles(var data) {
 }
 
 // A confirmation box to show if its ok to proceed with sync and delete operation
-Future<dynamic> showConfirmationBox(BuildContext context, String opType) {
+Future<dynamic> showConfirmationBox(BuildContext context, String opType, int countOfMessagesToRetrieve) {
+  
+  final TextEditingController inputMessageCountController = TextEditingController();
+  inputMessageCountController.text = countOfMessagesToRetrieve.toString();
+
   String title = 'Please confirm';
   String choiceYes = 'Yes';
   String choiceNo = 'No';
@@ -370,7 +378,20 @@ Future<dynamic> showConfirmationBox(BuildContext context, String opType) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        content: Text(content),
+        content: Row(
+          children: [
+            Text(content),
+            SizedBox(height: 20),
+            TextField(
+              controller: inputMessageCountController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: "How many messages to Sync?",
+              ),
+            ),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () {
@@ -380,6 +401,10 @@ Future<dynamic> showConfirmationBox(BuildContext context, String opType) {
           ),
           TextButton(
             onPressed: () {
+              if(inputMessageCountController.text == ''){ // guard clause
+                inputMessageCountController.text == '0';
+              }
+              countOfMessagesToRetrieve = inputMessageCountController.text as int;
               Navigator.of(context).pop(true); // User clicked Yes
               // setState(() {
               //   isLoading = true;

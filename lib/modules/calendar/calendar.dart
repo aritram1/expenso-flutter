@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:expenso/helper/model_task.dart';
+import 'package:expenso/model/model_task.dart';
 import 'package:expenso/modules/calendar/new_task.dart';
 import 'package:expenso/modules/calendar/util_calendar.dart';
 import 'package:expenso/widgets/listview_widget.dart';

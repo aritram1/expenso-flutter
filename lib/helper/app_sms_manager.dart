@@ -82,9 +82,13 @@ class SMSManager {
     List<Map<String, dynamic>> convertedMessages = [];
     for (SmsMessage sms in messages) {
       String? content = (sms.body != null && sms.body!.length > 255) ? sms.body?.substring(0, 255) : sms.body;
+      
+      // Remove newline characters from content
+      String formattedContent = (content == null) ? '' : content.replaceAll('\\n', ' ');
+      
       Map<String, dynamic> record = {
-        "Content__c": "$content",
-        "Original_Content__c" : "$content",
+        "Content__c": formattedContent,
+        "Original_Content__c" : content,
         "Sender__c": "${sms.sender}",
         "Received_At__c": sms.date.toString(),
         "Device__c": deviceName,

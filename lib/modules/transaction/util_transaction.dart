@@ -104,8 +104,25 @@ class FinPlanTransactionUtil {
   
   
   // Method to sync transaction messages with Salesforce
-  static Future<List<String>> syncWithSalesforceWithPE(int numberOfMessagesToRetrieve) async{
+  static Future<List<String>> syncWithSalesforceWithAPI(int numberOfMessagesToRetrieve) async{
 
+    // Get the messages and convert to desired payload, then send as platform events
+    List<SmsMessage> messages = await SMSManager.getTransactionalMessages(count : numberOfMessagesToRetrieve);
+    List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
+    List<String> responses = [];
+    
+    List<Map<String, String>> body = messagesMap.toList() as List<Map<String, String>>;
+
+    Logger().d('body is=> ${body.toString}');
+
+    String currentResponse = await SalesforceCustomRestController.callSalesforceAPI(endpointUrl: AppConstants.CUSTOM_ENDPOINT_FOR_SYNCHRONIZE_MESSAGES, httpMethod: 'POST', body: body);
+    Logger().d('response is=> $currentResponse');
+    
+    return responses;
+  }
+  
+  // Method to sync transaction messages with Salesforce
+  static Future<List<String>> syncWithSalesforceWithPE(int numberOfMessagesToRetrieve) async{
     // Get the messages and convert to desired payload, then send as platform events
     List<SmsMessage> messages = await SMSManager.getTransactionalMessages(count : numberOfMessagesToRetrieve);
     List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);

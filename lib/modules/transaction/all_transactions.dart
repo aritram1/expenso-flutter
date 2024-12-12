@@ -108,7 +108,11 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
                 
                 // New method
                 // Insertion via platform event : SMS_Platform_Event__e
+                // List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(countOfMessagesToRetrieve); // here PE are sent
+                
+                // newer method : now with API
                 List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(countOfMessagesToRetrieve); // here PE are sent
+                
                 Logger().d('message sync result is=> $results');
 
                 // Unset the loading indicator

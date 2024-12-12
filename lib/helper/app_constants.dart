@@ -60,7 +60,9 @@ class AppConstants{
   static const String ENDPOINT_DEL_MESSAGES_AND_TRANSACTIONS = '/services/apexrest/FinPlan/api/delete/*';  
   static const String CUSTOM_ENDPOINT_FOR_SYNC_MESSAGES = '/services/apexrest/FinPlan/api/sms/sync/*';
   static const String CUSTOM_ENDPOINT_FOR_APPROVE_MESSAGES = '/services/apexrest/FinPlan/api/sms/approve/*';
-  static const String CUSTOM_ENDPOINT_FOR_DELETE_ALL_MESSAGES_AND_TRANSACTIONS = '/services/apexrest/FinPlan/api/delete/*';  
+  static const String CUSTOM_ENDPOINT_FOR_DELETE_ALL_MESSAGES_AND_TRANSACTIONS = '/services/apexrest/FinPlan/api/delete/*'; 
+
+  static const String CUSTOM_ENDPOINT_FOR_SYNCHRONIZE_MESSAGES = '/services/apexrest/SynchronizeMessagesAPI/'; 
 
   // STANDARD REST ENDPOINTS
   static const String COMPOSITE_URL_FOR_INSERT = '/services/data/v59.0/composite/tree/';

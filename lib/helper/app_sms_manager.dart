@@ -20,26 +20,66 @@ class SMSManager {
   static Future<List<SmsMessage>> getInboxMessages({
     List<SmsQueryKind> kinds = const[SmsQueryKind.inbox], // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
     String? sender, 
-    required int count}) async {
+    int? count}) async {
     
     List<SmsMessage> messages = [];
 
     var permission = await Permission.sms.status;
 
-    if (permission.isGranted) {
-      messages = await SmsQuery().querySms(
-        kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
-        address: sender,      // +1234567890
-        count: count,   // 10
-      );
+    // When the count is not provided
+    if(count == null){
+      if (permission.isGranted) {
+        messages = await SmsQuery().querySms(
+          kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
+          address: sender,      // +1234567890
+        );
+      }
+      else {
+        await Permission.sms.request();
+      }
+      log.d('Inbox all message count : ${messages.length}');
     }
-    else {
-      await Permission.sms.request();
-    }
-    log.d('Inbox all message count : ${messages.length}');
 
+    // When the count is provided
+    else{
+      if (permission.isGranted) {
+        messages = await SmsQuery().querySms(
+          kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
+          address: sender,      // +1234567890
+          count: count,  // 10
+        );
+      }
+      else {
+        await Permission.sms.request();
+      }
+      log.d('Inbox all message count : ${messages.length}');
+    }
     return messages;
   }
+
+  // static Future<List<SmsMessage>> getInboxMessages({
+  //   List<SmsQueryKind> kinds = const[SmsQueryKind.inbox], // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
+  //   String? sender, 
+  //   required int count}) async {
+    
+  //   List<SmsMessage> messages = [];
+
+  //   var permission = await Permission.sms.status;
+
+  //   if (permission.isGranted) {
+  //     messages = await SmsQuery().querySms(
+  //       kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
+  //       address: sender,      // +1234567890
+  //       count: count,         // 10
+  //     );
+  //   }
+  //   else {
+  //     await Permission.sms.request();
+  //   }
+  //   log.d('Inbox all message count : ${messages.length}');
+
+  //   return messages;
+  // }
 
   // Get transactional messages
   static Future<List<SmsMessage>> getTransactionalMessages({required int count}) async{
@@ -48,7 +88,7 @@ class SMSManager {
     bool isPersonal = false;
     List<SmsMessage> transactionalMessages = [];
     
-    List<SmsMessage> msgList = await getInboxMessages(count : count);
+    List<SmsMessage> msgList = await getInboxMessages(); //(count : count);
     
     for(int i = 0; i < msgList.length; i++){
 
@@ -65,11 +105,12 @@ class SMSManager {
       }
     }
 
-    // Clip the required number of messages from the list if the list contains sufficient items
-    List<SmsMessage> listToReturn = (transactionalMessages.length <= maximumMessageCount) 
-                                        ? transactionalMessages 
-                                        : transactionalMessages.sublist(0, maximumMessageCount);
-    return listToReturn;
+    // Clip the required number of messages from the list
+    if(transactionalMessages.length > count){
+      transactionalMessages = transactionalMessages.sublist(0, maximumMessageCount);
+    }
+
+    return transactionalMessages;
   }
 
   // Method to convert the SMS Messages to a format that will be used for insert method later

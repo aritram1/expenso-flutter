@@ -111,7 +111,7 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
                 // List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(countOfMessagesToRetrieve); // here PE are sent
                 
                 // newer method : now with API
-                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithPE(countOfMessagesToRetrieve); // here PE are sent
+                List<String> results = await FinPlanTransactionUtil.syncWithSalesforceWithAPI(countOfMessagesToRetrieve); // here PE are sent
                 
                 Logger().d('message sync result is=> $results');
 

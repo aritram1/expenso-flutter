@@ -111,11 +111,9 @@ class FinPlanTransactionUtil {
     List<Map<String, dynamic>> messagesMap = await SMSManager.convertMessagesToMap(messages);
     List<String> responses = [];
     
-    List<Map<String, String>> body = messagesMap.toList() as List<Map<String, String>>;
+    Logger().d('messagesMap is=> $messagesMap');
 
-    Logger().d('body is=> ${body.toString}');
-
-    String currentResponse = await SalesforceCustomRestController.callSalesforceAPI(endpointUrl: AppConstants.CUSTOM_ENDPOINT_FOR_SYNCHRONIZE_MESSAGES, httpMethod: 'POST', body: body);
+    String currentResponse = await SalesforceCustomRestController.callSalesforceAPI(endpointUrl: AppConstants.CUSTOM_ENDPOINT_FOR_SYNCHRONIZE_MESSAGES, httpMethod: 'POST', body: messagesMap);
     Logger().d('response is=> $currentResponse');
     
     return responses;

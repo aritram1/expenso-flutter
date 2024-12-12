@@ -19,41 +19,23 @@ class SMSManager {
   ///////////////////////////////Get SMS Messages//////////////////////////////////////
   static Future<List<SmsMessage>> getInboxMessages({
     List<SmsQueryKind> kinds = const[SmsQueryKind.inbox], // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
-    String? sender, 
-    int? count}) async {
+    String? sender}) async {
     
     List<SmsMessage> messages = [];
 
     var permission = await Permission.sms.status;
 
-    // When the count is not provided
-    if(count == null){
-      if (permission.isGranted) {
-        messages = await SmsQuery().querySms(
-          kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
-          address: sender,      // +1234567890
-        );
-      }
-      else {
-        await Permission.sms.request();
-      }
-      log.d('Inbox all message count : ${messages.length}');
+    if (permission.isGranted) {
+      messages = await SmsQuery().querySms(
+        kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
+        address: sender,      // +1234567890
+      );
     }
+    else {
+      await Permission.sms.request();
+    }
+    log.d('Inbox all message count : ${messages.length}');
 
-    // When the count is provided
-    else{
-      if (permission.isGranted) {
-        messages = await SmsQuery().querySms(
-          kinds: kinds,         // SmsQueryKind.inbox, SmsQueryKind.sent, SmsMessageKind.draft
-          address: sender,      // +1234567890
-          count: count,  // 10
-        );
-      }
-      else {
-        await Permission.sms.request();
-      }
-      log.d('Inbox all message count : ${messages.length}');
-    }
     return messages;
   }
 
@@ -90,7 +72,7 @@ class SMSManager {
     
     List<SmsMessage> msgList = await getInboxMessages(); //(count : count);
     
-    for(int i = 0; i < msgList.length; i++){
+    for(int i = 0; ((i < count) && (i < msgList.length)); i++){ // watch this loop :D :D
 
       String msgUppercase = (msgList[i].body ?? '').toUpperCase();
       
@@ -98,17 +80,16 @@ class SMSManager {
       isPersonal = msgList[i].sender!.toUpperCase().startsWith('+');
       
       // Add to the message list if 
-      // - Its NOT an OTP OR personal message
-      // - but a transactional message
+      // - Its NOT an OTP 
+      // - OR personal message
       if(!isOTP && !isPersonal){
         transactionalMessages.add(msgList[i]);
       }
     }
-
-    // Clip the required number of messages from the list
-    if(transactionalMessages.length > count){
-      transactionalMessages = transactionalMessages.sublist(0, maximumMessageCount);
-    }
+    // // Clip the required number of messages from the list
+    // if(transactionalMessages.length > count){
+    //   transactionalMessages = transactionalMessages.sublist(0, maximumMessageCount);
+    // }
 
     return transactionalMessages;
   }

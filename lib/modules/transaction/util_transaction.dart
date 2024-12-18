@@ -37,11 +37,12 @@ class FinPlanTransactionUtil {
     
     List<Map<String, dynamic>> allTransactionMessages = [];
     Map<String, dynamic> response = await SalesforceQueryController.queryFromSalesforce(
-      objAPIName: 'SMS__c', // 'SMS_Message__c', 
-      fieldList: ['Id', 'CreatedDate', 'Transaction_Date__c', 'Beneficiary__c', 
-                  'Amount_Value__c', 'Beneficiary_Type__c', 'Device__c',
-                  'Approved__c', 'Create_Transaction__c', 'Type__c'], 
-      whereClause: 'Device__c = $deviceId AND Approved__c = false AND Create_Transaction__c = true $dateClause',
+      objAPIName: 'Transaction__c', // 'SMS_Message__c', 
+      fieldList: ['Id', 'CreatedDate', 'Transaction_Date__c', 'Beneficiary__c', 'Beneficiary__r.name',
+                  // 'Beneficiary__r.Beneficiary_Type__c', 'Device__c', 'Approved__c', 'Create_Transaction__c',
+                  'Amount__c', 'Type__c'], 
+      // whereClause: 'Create_Transaction__c = true $dateClause',
+      // whereClause: 'Device__c = $deviceId AND Approved__c = false AND Create_Transaction__c = true $dateClause',
       orderByClause: 'Transaction_Date__c desc',
       //count : 120
     );
@@ -64,12 +65,12 @@ class FinPlanTransactionUtil {
           for (var record in records) {
             Map<String, dynamic> recordMap = Map.castFrom(record);
             allTransactionMessages.add({
-              'Paid To': recordMap['Beneficiary__c'] ?? 'Default Beneficiary',
-              'Amount': double.parse(recordMap['Amount_Value__c'] ?? '0'),
-              'Date': DateTime.parse(recordMap['Transaction_Date__c'] ?? DateTime.now().toString()),
+              'Paid To': recordMap['Beneficiary__r']?['Name'] ?? 'Default Beneficiary',
+              'Amount': recordMap['Amount__c'] ?? 0,
+              'Date': DateTime.tryParse(recordMap['Transaction_Date__c'] ?? DateTime.now().toString()) ?? DateTime.now(),
               'Id': recordMap['Id'] ?? 'Default Id',
-              'BeneficiaryType': recordMap['Beneficiary_Type__c'] ?? '',
-              'Type' : recordMap['Type__c'] ?? 'noType'
+              'BeneficiaryType': recordMap['Beneficiary__r']?['Beneficiary_Type__c'] ?? '',
+              'Type': recordMap['Type__c'] ?? 'noType',
             });
           }
         }

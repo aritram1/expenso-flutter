@@ -56,7 +56,7 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
   }
 
   Future<void> loadTransactions() async {
-    allData = await getAllTransactionTransactions(selectedStartDate, selectedEndDate);
+    allData = await getAllTransactionInRange(selectedStartDate, selectedEndDate);
     tableData = allData;
     filteredDataMap = generateDataMap(allData);
   }
@@ -217,11 +217,11 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
   // It defaults values here, so it can call the next method 
   // `getAllTransactions(DateTime startDate, DateTime endDate)`
   Future<List<Map<String, dynamic>>> getAllTransactions() async {
-    return getAllTransactionTransactions(selectedStartDate, selectedEndDate);
+    return getAllTransactionInRange(selectedStartDate, selectedEndDate);
   }
 
   // method to get widget data
-  Future<List<Map<String, dynamic>>> getAllTransactionTransactions(DateTime startDate, DateTime endDate) async {
+  Future<List<Map<String, dynamic>>> getAllTransactionInRange(DateTime startDate, DateTime endDate) async {
     try {
       allData = await FinPlanTransactionUtil.getAllTransactionMessages(startDate: startDate, endDate: endDate);
       Logger().d('${allData.length} records are retrieved.');
@@ -269,7 +269,7 @@ class FinPlanAllTransactionsState extends State<FinPlanAllTransactions> {
       selectedEndDate = endDate;
     });
     
-    allData = await getAllTransactionTransactions(selectedStartDate, selectedEndDate);
+    allData = await getAllTransactionInRange(selectedStartDate, selectedEndDate);
 
     setState(() {  
       tableData = allData;

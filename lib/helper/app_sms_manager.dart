@@ -68,17 +68,27 @@ class SMSManager {
     
     bool isOTP = false;
     bool isPersonal = false;
+    bool isTransactional = false;
+
     List<SmsMessage> transactionalMessages = [];
     
     List<SmsMessage> msgList = await getInboxMessages(); //(count : count);
     
     for(int i = 0; ((i < count) && (i < msgList.length)); i++){ // watch this loop :D :D
 
-      String msgUppercase = (msgList[i].body ?? '').toUpperCase();
+      String content = (msgList[i].body ?? '').toUpperCase();
       
-      isOTP = msgUppercase.contains('OTP') || msgUppercase.contains('VERIFICATION CODE');
+      isOTP = content.contains('OTP') || content.contains('VERIFICATION CODE');
       isPersonal = msgList[i].sender!.toUpperCase().startsWith('+');
-      
+      isTransactional = (
+            content.contains('9560') || // HDFC SA
+            content.contains('360')  || // ICICI SA
+            content.contains('6414') || content.contains('0479') || // SBI SA
+            content.contains('7005') || // ICICI CC
+            content.contains('9006') || // HDFC CC
+            content.contains('2004')    // HDFC CC
+          );  
+
       // Add to the message list if 
       // - Its NOT an OTP 
       // - OR personal message
@@ -106,8 +116,10 @@ class SMSManager {
       String? content = (sms.body != null && sms.body!.length > 255) ? sms.body?.substring(0, 255) : sms.body;
       
       // Remove newline characters from content
-      String formattedContent = (content == null) ? '' : content.replaceAll('\\n', ' ');
-      
+      String formattedContent = (content == null) 
+                                  ? '' 
+                                  : content.replaceAll(RegExp(r'(\r\n|\r|\n)'), ' ');
+
       Map<String, dynamic> record = {
         "Content__c": formattedContent,
         "Original_Content__c" : content,
